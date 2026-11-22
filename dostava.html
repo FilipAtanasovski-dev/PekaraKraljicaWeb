@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Poručivanje – Pekara Kraljica</title>
+  <meta name="description" content="Poručite sveže proizvode Pekare Kraljica.">
+  <link rel="shortcut icon" type="image/png" href="./assets/images/logo.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <style>
+    :root {
+      --kraljica-accent: #b78a42;
+    }
+
+    body {
+      background: #faf9f6;
+    }
+
+    .order-hero {
+      padding: 145px 0 55px;
+      background: #f3f0e9;
+    }
+
+    .order-shell {
+      padding: 55px 0 75px;
+    }
+
+    /* Toolbar */
+    .order-toolbar {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 4px 22px #0000000a;
+    }
+
+    .order-toolbar .row {
+      align-items: flex-end !important;
+    }
+
+    .order-toolbar .form-label {
+      display: block;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .order-toolbar .form-control,
+    .order-toolbar .form-select {
+      height: 42px !important;
+      margin: 0;
+    }
+
+    .order-toolbar .col-lg-3 {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .order-toolbar .col-lg-3 .btn {
+      height: 42px;
+      width: 100%;
+      white-space: nowrap;
+    }
+
+    /* Category sections */
+    .category-section {
+      margin-bottom: 55px;
+    }
+
+    .category-heading {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #28231e;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--kraljica-accent);
+    }
+
+    .category-banner {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      display: block;
+    }
+
+    /* Product cards */
+    .product-card {
+      height: 100%;
+      background: #fff;
+      border: 1px solid #eee8df;
+      border-radius: 10px;
+      padding: 20px;
+      transition: .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px #0000000d;
+    }
+
+    .product-category {
+      color: var(--kraljica-accent);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .product-title {
+      font-size: 1.08rem;
+      font-weight: 650;
+      margin: 8px 0 5px;
+    }
+
+    .product-price {
+      font-weight: 700;
+      color: #28231e;
+    }
+
+    .product-unit {
+      color: #777;
+      font-size: .9rem;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quantity-control input {
+      width: 90px;
+      text-align: center;
+    }
+
+    .btn-kraljica {
+      background: var(--kraljica-accent);
+      color: #fff;
+      border: 1px solid var(--kraljica-accent);
+    }
+
+    .btn-kraljica:hover {
+      background: #9d7435;
+      color: #fff;
+    }
+
+    /* Cart */
+    .cart-panel {
+      background: #fff;
+      border: 1px solid #eee8df;
+      border-radius: 10px;
+      padding: 22px;
+      position: sticky;
+      top: 105px;
+    }
+
+    .cart-line {
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+    }
+
+    .cart-line:last-child {
+      border-bottom: 0;
+    }
+
+    .cart-total {
+      font-size: 1.3rem;
+      font-weight: 750;
+    }
+
+    .empty-state {
+      background: #fff;
+      padding: 45px 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: #777;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--kraljica-accent);
+      box-shadow: 0 0 0 .2rem #b78a4225;
+    }
+
+    .fulfillment-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px;
+      height: 100%;
+      border: 1px solid #e8e1d7;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .fulfillment-option:has(input:checked) {
+      border-color: var(--kraljica-accent);
+      background: #fbf8f2;
+    }
+
+    .fulfillment-option input {
+      margin-top: 4px;
+      accent-color: var(--kraljica-accent);
+    }
+
+    .fulfillment-option input:disabled {
+      cursor: not-allowed;
+    }
+
+    .fulfillment-option.disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 991px) {
+      .cart-panel {
+        position: static;
+        margin-top: 25px;
+      }
+
+      .order-hero {
+        padding-top: 120px;
+      }
+
+      .order-toolbar .col-lg-3 {
+        display: block;
+      }
+
+      .category-banner {
+        height: 150px;
+      }
+
+      .category-heading {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="loader-wrapper">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top custom-navbar navbar-theme-light navbar-light">
+    <div class="container-fluid">
+
+      <a class="navbar-brand" href="index.html">
+        <img class="nav-logo" src="./assets/images/logo.png" alt="Pekara Kraljica">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Otvori navigaciju">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Početna</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="dostava.html">O nama i cenovnik</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarProductsDropdown"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Proizvodi
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="navbarProductsDropdown">
+              <li><a class="dropdown-item" href="peciva.html">Peciva</a></li>
+              <li><a class="dropdown-item" href="kolaci.html">Kolači</a></li>
+              <li><a class="dropdown-item" href="torte.html">Torte</a></li>
+              <li><a class="dropdown-item" href="ketering.html">Ketering</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="ketering.html">Ketering</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Kontakt</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="order-hero">
+    <div class="container text-center">
+      <h1 class="page-title" data-aos="fade-up">Poručivanje</h1>
+      <p class="mb-0" data-aos="fade-up" data-aos-delay="100">
+        Izaberite omiljene proizvode, dodajte ih u korpu i pošaljite porudžbinu.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ordering -->
+  <main class="order-shell">
+    <div class="container">
+
+      <!-- Search and category filters -->
+      <div class="order-toolbar mb-4">
+        <div class="row g-3">
+
+          <div class="col-lg-5">
+            <label class="form-label" for="searchInput">Pretraga proizvoda</label>
+            <input
+              id="searchInput"
+              class="form-control"
+              type="search"
+              placeholder="Unesite naziv proizvoda..."
+            >
+          </div>
+
+          <div class="col-lg-4">
+            <label class="form-label" for="categoryFilter">Kategorija</label>
+            <select id="categoryFilter" class="form-select">
+              <option value="">Sve kategorije</option>
+            </select>
+          </div>
+
+          <div class="col-lg-3">
+            <button class="btn btn-outline-secondary w-100" id="reloadProducts">
+              <i class="bi bi-arrow-clockwise"></i> Osveži ponudu
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- Product list -->
+        <section class="col-lg-8">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Naša ponuda</h2>
+            <span class="text-muted small" id="productCount"></span>
+          </div>
+
+          <div id="productGrid">
+            <div class="empty-state">
+              <div class="spinner-border spinner-border-sm me-2"></div>
+              Učitavanje ponude...
+            </div>
+          </div>
+
+          <div id="loadError" class="alert alert-warning d-none mt-3" role="alert"></div>
+        </section>
+
+        <!-- Cart -->
+        <aside class="col-lg-4">
+          <div class="cart-panel">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="h4 mb-0">
+                <i class="bi bi-basket2"></i> Vaša korpa
+              </h2>
+              <button class="btn btn-sm btn-link text-danger p-0" id="clearCart">
+                Isprazni
+              </button>
+            </div>
+
+            <div id="cartItems">
+              <p class="text-muted mb-0">Korpa je trenutno prazna.</p>
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Ukupno</span>
+              <span class="cart-total" id="cartTotal">0 RSD</span>
+            </div>
+
+            <button class="btn btn-kraljica w-100 mt-3" id="checkoutButton" disabled>
+              Pređi na poručivanje
+            </button>
+
+            <p class="small text-muted mt-3 mb-0">
+              Cena se obračunava prema aktuelnom cenovniku.
+              Porudžbina se potvrđuje nakon što vas kontaktiramo.
+            </p>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Checkout modal -->
+  <div class="modal fade" id="checkoutModal" tabindex="-1"
+    aria-labelledby="checkoutModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <form id="checkoutForm">
+
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="checkoutModalLabel">
+              Podaci za porudžbinu
+            </h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Zatvori"></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label class="form-label" for="customerName">Ime i prezime *</label>
+                <input class="form-control" id="customerName" required minlength="2" maxlength="160">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="customerPhone">Telefon *</label>
+                <input class="form-control" id="customerPhone" type="tel"
+                  required minlength="5" maxlength="40">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="customerEmail">Email</label>
+                <input class="form-control" id="customerEmail" type="email">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label d-block">Način preuzimanja *</label>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <label class="fulfillment-option" for="fulfillmentPickup">
+                      <input type="radio" name="fulfillment" id="fulfillmentPickup"
+                        value="pickup" checked>
+                      <span>
+                        <strong class="d-block">Pokupi na lokaciji</strong>
+                        <span class="small text-muted">Lično preuzimanje u pekari.</span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="fulfillment-option disabled" for="fulfillmentDelivery"
+                      id="deliveryOption">
+                      <input type="radio" name="fulfillment" id="fulfillmentDelivery"
+                        value="delivery" disabled>
+                      <span>
+                        <strong class="d-block">Dostava</strong>
+                        <span class="small text-muted">Dostava je dostupna samo za porudžbine veće od 5.000 din.</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 d-none" id="addressGroup">
+                <label class="form-label" for="customerAddress">Adresa za dostavu *</label>
+                <input class="form-control" id="customerAddress" maxlength="500">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="orderNotes">Napomena</label>
+                <textarea class="form-control" id="orderNotes" rows="3" maxlength="2000"
+                  placeholder="Dodatne informacije o porudžbini..."></textarea>
+              </div>
+
+            </div>
+
+            <div class="alert alert-light border mt-3 mb-0">
+              <strong>Ukupno: <span id="checkoutTotal">0 RSD</span></strong>
+              <div class="small text-muted">
+                Trošak dostave, ukoliko postoji, potvrđuje se telefonom.
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Nazad
+            </button>
+            <button type="submit" class="btn btn-kraljica" id="submitOrder">
+              Pošalji porudžbinu
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container pb-5">
+    <div id="orderFeedback" aria-live="polite"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-one">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3">
+          <h5 class="mb-4 text-primary">Brzi linkovi</h5>
+          <ul class="footer-links">
+            <li><a href="index.html" class="btn-link">Početna</a></li>
+            <li><a href="dostava.html" class="btn-link">O nama i cenovnik</a></li>
+            <li><a href="peciva.html" class="btn-link">Peciva</a></li>
+            <li><a href="kolaci.html" class="btn-link">Kolači</a></li>
+            <li><a href="torte.html" class="btn-link">Torte</a></li>
+            <li><a href="ketering.html" class="btn-link">Ketering</a></li>
+            <li><a href="contact.html" class="btn-link">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h5 class="mb-4 text-primary">Proizvodi</h5>
+          <ul class="footer-links">
+            <li><a href="peciva.html" class="btn-link">Peciva</a></li>
+            <li><a href="peciva.html" class="btn-link">Pice</a></li>
+            <li><a href="kolaci.html" class="btn-link">Kolači</a></li>
+            <li><a href="torte.html" class="btn-link">Torte</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h5 class="mb-4 text-primary">Radno vreme</h5>
+          <ul class="timing-list">
+            <li>Ponedeljak <span>07:00 - 20:00</span></li>
+            <li>Utorak <span>07:00 - 20:00</span></li>
+            <li>Sreda <span>07:00 - 20:00</span></li>
+            <li>Četvrtak <span>07:00 - 20:00</span></li>
+            <li>Petak <span>07:00 - 20:00</span></li>
+            <li>Subota <span>07:00 - 20:00</span></li>
+            <li>Nedelja <span>Neradni dan</span></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h5 class="mb-4 text-primary">Kontakt</h5>
+
+          <p class="text-white-50">
+            <strong>Za veće porudžbine obezbeđen je prevoz.</strong>
+          </p>
+
+          <p class="text-white-50">
+            Kraljica<br>
+            Vojvode Stepe 169<br>
+            Beograd
+          </p>
+
+          <p class="text-white-50">
+            Telefon:<br>
+            011-3970-568<br>
+            011-3974-905
+          </p>
+
+          <div class="social-links mt-3">
+            <a href="#" class="btn btn-outline-light btn-sm me-2">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" class="btn btn-outline-light btn-sm me-2">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="#" class="btn btn-outline-light btn-sm me-2">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a href="#" class="btn btn-outline-light btn-sm me-2">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="#" class="btn btn-outline-light btn-sm">
+              <i class="bi bi-youtube"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <hr class="mt-5 mb-4 border-secondary">
+
+      <div class="row copyright">
+        <div class="col-md-6 text-md-start">
+          <p class="mb-0">
+            Kraljica | Vojvode Stepe 169 |
+            011-3970-568, 011-3974-905
+          </p>
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+          <span>
+            Radno vreme: 7-20h svakog dana osim nedelje koja je neradna
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="./assets/js/app.js"></script>
+
+  <script>
+    // ============================================================
+    // CONFIGURATION – EDIT THESE VALUES
+    // ============================================================
+
+    // Your deployed FastAPI base URL (no trailing slash).
+    const API_BASE_URL = "http://127.0.0.1:8000";
+
+    // Business owner's email: every new order is sent here.
+    const OWNER_EMAIL = "attanja77@gmail.com";
+
+    // EmailJS credentials (emailjs.com -> Account / Email Services / Email Templates).
+    const EMAILJS_PUBLIC_KEY  = "yefTEnz6R96SQ485r";
+    const EMAILJS_SERVICE_ID  = "service_5l0ndcj";
+    const EMAILJS_TEMPLATE_ID = "template_n5a4vjh";
+
+    // Name shown in the emails.
+    const BUSINESS_NAME = "Pekara Kraljica";
+
+    // Also send a confirmation to the customer (only if they entered an email).
+    const SEND_CUSTOMER_CONFIRMATION = true;
+
+    // ============================================================
+
+    if (typeof emailjs !== "undefined") {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    }
+
+    let products = [];
+    const cart = new Map();
+
+    const money = value =>
+      new Intl.NumberFormat("sr-RS", { maximumFractionDigits: 2 }).format(value) + " RSD";
+
+    const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+
+    function normalizeCategory(value) {
+      return String(value ?? "")
+        .trim()
+        .replace(/\s+/g, " ")
+        .toLocaleLowerCase("sr");
+    }
+
+    function isPieceProduct(product) {
+      const unit = String(product.Mera ?? "")
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, "");
+
+      return ["KOM", "KOMAD", "KOM."].includes(unit);
+    }
+
+    // Build the category image path.
+    // Example: "Peciva" becomes "./assets/images/categories/Peciva.jpg".
+    function getCategoryImage(category) {
+      return `./assets/images/categories/${encodeURIComponent(category.trim())}.jpg`;
+    }
+
+    // ============================================================
+    // EMAIL NOTIFICATIONS
+    // ============================================================
+
+    // Builds the email body as HTML. All user-entered text is escaped.
+    function buildOrderEmailHtml(orderId, payload, items, total) {
+      const e = escapeHtml;
+
+      const itemLines = items.map(item =>
+        `- ${e(item.name)}: ${e(item.quantity)} ${e(item.unit)} × ` +
+        `${e(money(item.unitPrice))} = ${e(money(item.quantity * item.unitPrice))}`
+      ).join("<br>");
+
+      const method = payload.fulfillment === "delivery"
+        ? "Dostava"
+        : "Pokupi na lokaciji";
+
+      const lines = [
+        `<strong>Porudžbina #${e(orderId)}</strong>`,
+        "",
+        `Ime: ${e(payload.customer_name)}`,
+        `Telefon: ${e(payload.phone)}`,
+        `Email: ${e(payload.email || "-")}`,
+        `Način preuzimanja: ${e(method)}`
+      ];
+
+      if (payload.fulfillment === "delivery") {
+        lines.push(`Adresa: ${e(payload.address || "-")}`);
+      }
+
+      if (payload.notes) {
+        lines.push(`Napomena: ${e(payload.notes).replace(/\n/g, "<br>")}`);
+      }
+
+      lines.push("", "<strong>Stavke:</strong>", itemLines, "", `<strong>UKUPNO: ${e(money(total))}</strong>`);
+
+      return lines.join("<br>");
+    }
+
+    // Sends the owner notification (and optional customer confirmation).
+    // Never throws: a failed email must not affect the placed order.
+    async function sendOrderEmails(orderId, payload, items, total) {
+      if (typeof emailjs === "undefined") {
+        console.warn("EmailJS is not loaded; emails were not sent.");
+        return;
+      }
+
+      const body = buildOrderEmailHtml(orderId, payload, items, total);
+
+      const send = (to, subject, message, replyTo) =>
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: to,
+          subject: subject,
+          message: message,
+          reply_to: replyTo || "",
+          business_name: BUSINESS_NAME
+        });
+
+      try {
+        await send(
+          OWNER_EMAIL,
+          `Nova porudžbina #${orderId} - ${payload.customer_name}`,
+          body,
+          payload.email
+        );
+      } catch (err) {
+        console.error("Owner email failed:", err);
+      }
+
+      if (SEND_CUSTOMER_CONFIRMATION && payload.email) {
+        try {
+          await send(
+            payload.email,
+            `Potvrda porudžbine #${orderId} - ${BUSINESS_NAME}`,
+            "Hvala na porudžbini! Primili smo sledeće:<br><br>" + body,
+            OWNER_EMAIL
+          );
+        } catch (err) {
+          console.error("Customer email failed:", err);
+        }
+      }
+    }
+
+    // ============================================================
+    // PRODUCTS
+    // ============================================================
+
+    async function loadProducts() {
+      const grid = document.getElementById("productGrid");
+      const error = document.getElementById("loadError");
+
+      error.classList.add("d-none");
+
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="spinner-border spinner-border-sm me-2"></div>
+          Učitavanje ponude...
+        </div>`;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/store/products`);
+
+        if (!response.ok) {
+          throw new Error(`Server je vratio grešku (${response.status}).`);
+        }
+
+        const data = await response.json();
+        products = data.products || [];
+
+        populateCategories();
+        renderProducts();
+
+      } catch (err) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-wifi-off fs-2"></i>
+            <p class="mt-2 mb-0">Ponuda trenutno nije dostupna.</p>
+          </div>`;
+
+        error.textContent = `${err.message} Proverite API adresu i CORS podešavanja.`;
+        error.classList.remove("d-none");
+      }
+    }
+
+    function populateCategories() {
+      const select = document.getElementById("categoryFilter");
+      const selected = select.value;
+
+      const uniqueCategories = new Map();
+
+      products.forEach(p => {
+        if (!p.Kategorija) return;
+
+        const category = String(p.Kategorija).trim();
+        if (!category) return;
+
+        const normalized = normalizeCategory(category);
+
+        if (!uniqueCategories.has(normalized)) {
+          uniqueCategories.set(normalized, category);
+        }
+      });
+
+      const categories = [...uniqueCategories.values()]
+        .sort((a, b) => a.localeCompare(b, "sr"));
+
+      select.innerHTML =
+        '<option value="">Sve kategorije</option>' +
+        categories.map(c =>
+          `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`
+        ).join("");
+
+      const selectedNormalized = normalizeCategory(selected);
+
+      const matchingCategory = categories.find(
+        c => normalizeCategory(c) === selectedNormalized
+      );
+
+      select.value = matchingCategory || "";
+    }
+
+    // Render products grouped by category.
+    function renderProducts() {
+      const search = document.getElementById("searchInput").value
+        .trim()
+        .toLocaleLowerCase("sr");
+
+      const category = document.getElementById("categoryFilter").value;
+      const normalizedSelectedCategory = normalizeCategory(category);
+
+      const filtered = products.filter(p => {
+        const matchesCategory =
+          !category ||
+          normalizeCategory(p.Kategorija) === normalizedSelectedCategory;
+
+        const searchableText =
+          `${p.Ime_Proizvoda ?? ""} ${p.Kategorija ?? ""}`
+            .toLocaleLowerCase("sr");
+
+        return matchesCategory && searchableText.includes(search);
+      });
+
+      document.getElementById("productCount").textContent =
+        `${filtered.length} proizvoda`;
+
+      const grid = document.getElementById("productGrid");
+
+      if (!filtered.length) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            Nema proizvoda koji odgovaraju pretrazi.
+          </div>`;
+        return;
+      }
+
+      // Group the filtered products by category.
+      const groupedProducts = new Map();
+
+      filtered.forEach(product => {
+        const categoryName = String(product.Kategorija || "Ostalo").trim();
+        const normalized = normalizeCategory(categoryName);
+
+        if (!groupedProducts.has(normalized)) {
+          groupedProducts.set(normalized, {
+            name: categoryName,
+            products: []
+          });
+        }
+
+        groupedProducts.get(normalized).products.push(product);
+      });
+
+      // Sort category groups alphabetically.
+      const sortedGroups = [...groupedProducts.values()]
+        .sort((a, b) => a.name.localeCompare(b.name, "sr"));
+
+      grid.innerHTML = sortedGroups.map(group => {
+        const categoryImage = getCategoryImage(group.name);
+
+        const productCards = group.products.map(p => {
+          const quantity = cart.get(p.id)?.quantity || 0;
+          const isPiece = isPieceProduct(p);
+
+          return `
+            <div class="col-md-6">
+              <article class="product-card">
+
+                <div class="product-category">
+                  ${escapeHtml(p.Kategorija)}
+                </div>
+
+                <h3 class="product-title">
+                  ${escapeHtml(p.Ime_Proizvoda)}
+                </h3>
+
+                <div class="mb-3">
+                  <span class="product-price">
+                    ${money(p.Cena_po_Meri_Din)}
+                  </span>
+                  <span class="product-unit">
+                    / ${escapeHtml(p.Mera)}
+                  </span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center gap-2">
+
+                  ${
+                    isPiece
+                      ? `
+                        <div class="small text-muted">
+                          ${quantity > 0 ? `U korpi: ${quantity} kom` : "Cena po komadu"}
+                        </div>
+
+                        <button
+                          class="btn btn-kraljica btn-sm"
+                          onclick="addToCart(${p.id})"
+                        >
+                          <i class="bi bi-plus-lg"></i> Dodaj 1
+                        </button>
+                      `
+                      : `
+                        <div class="quantity-control">
+                          <input
+                            class="form-control form-control-sm"
+                            type="number"
+                            min="0.1"
+                            step="0.1"
+                            value="${quantity || 0.1}"
+                            aria-label="Količina za ${escapeHtml(p.Ime_Proizvoda)}"
+                            id="qty-${p.id}"
+                          >
+                        </div>
+
+                        <button
+                          class="btn btn-kraljica btn-sm"
+                          onclick="addToCart(${p.id})"
+                        >
+                          <i class="bi bi-basket-plus"></i> Dodaj
+                        </button>
+                      `
+                  }
+
+                </div>
+              </article>
+            </div>`;
+        }).join("");
+
+        return `
+          <section class="category-section">
+
+            <h2 class="category-heading">
+              ${escapeHtml(group.name)}
+            </h2>
+
+            <img
+              class="category-banner"
+              src="${categoryImage}"
+              alt="${escapeHtml(group.name)}"
+              onerror="this.style.display='none'"
+            >
+
+            <div class="row g-3">
+              ${productCards}
+            </div>
+
+          </section>`;
+      }).join("");
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+
+      // KOM products: each click adds exactly one piece.
+      if (isPieceProduct(product)) {
+        const existingQuantity = cart.get(id)?.quantity || 0;
+
+        cart.set(id, {
+          product,
+          quantity: existingQuantity + 1
+        });
+
+        renderCart();
+        renderProducts();
+        return;
+      }
+
+      // Other products: allow decimal quantities (e.g. KG).
+      const input = document.getElementById(`qty-${id}`);
+      const quantity = Number(input?.value);
+
+      if (!Number.isFinite(quantity) || quantity <= 0) {
+        if (input) {
+          input.classList.add("is-invalid");
+          setTimeout(() => input.classList.remove("is-invalid"), 1200);
+        }
+        return;
+      }
+
+      const existingQuantity = cart.get(id)?.quantity || 0;
+
+      cart.set(id, {
+        product,
+        quantity: existingQuantity + quantity
+      });
+
+      renderCart();
+      renderProducts();
+    }
+
+    function changeQuantity(id, value) {
+      const item = cart.get(id);
+      if (!item) return;
+
+      let quantity = Number(value);
+
+      if (!Number.isFinite(quantity) || quantity <= 0) {
+        cart.delete(id);
+      } else if (isPieceProduct(item.product)) {
+        quantity = Math.max(1, Math.round(quantity));
+        item.quantity = quantity;
+      } else {
+        item.quantity = quantity;
+      }
+
+      renderCart();
+      renderProducts();
+    }
+
+    function renderCart() {
+      const host = document.getElementById("cartItems");
+      const entries = [...cart.values()];
+
+      if (!entries.length) {
+        host.innerHTML = '<p class="text-muted mb-0">Korpa je trenutno prazna.</p>';
+      } else {
+        host.innerHTML = entries.map(({ product: p, quantity: q }) => {
+          const isPiece = isPieceProduct(p);
+
+          return `
+            <div class="cart-line">
+
+              <div class="d-flex justify-content-between gap-2">
+                <div>
+                  <strong>${escapeHtml(p.Ime_Proizvoda)}</strong>
+                  <div class="small text-muted">
+                    ${q} ${escapeHtml(p.Mera)} × ${money(p.Cena_po_Meri_Din)}
+                  </div>
+                </div>
+
+                <div class="text-end">
+                  <strong>${money(q * p.Cena_po_Meri_Din)}</strong>
+
+                  <button
+                    class="btn btn-link btn-sm text-danger p-0 d-block ms-auto"
+                    onclick="changeQuantity(${p.id}, 0)"
+                  >
+                    Ukloni
+                  </button>
+                </div>
+              </div>
+
+              <div class="mt-2">
+                <input
+                  class="form-control form-control-sm"
+                  aria-label="Promeni količinu"
+                  type="number"
+                  min="${isPiece ? 1 : 0.1}"
+                  step="${isPiece ? 1 : 0.1}"
+                  value="${q}"
+                  onchange="changeQuantity(${p.id}, this.value)"
+                >
+              </div>
+
+            </div>`;
+        }).join("");
+      }
+
+      const total = entries.reduce(
+        (sum, item) => sum + item.quantity * item.product.Cena_po_Meri_Din,
+        0
+      );
+
+      document.getElementById("cartTotal").textContent = money(total);
+      document.getElementById("checkoutTotal").textContent = money(total);
+      document.getElementById("checkoutButton").disabled = entries.length === 0;
+
+      updateFulfillmentAvailability(total);
+    }
+
+    // Event listeners
+    document.getElementById("searchInput").addEventListener("input", renderProducts);
+    document.getElementById("categoryFilter").addEventListener("change", renderProducts);
+    document.getElementById("reloadProducts").addEventListener("click", loadProducts);
+
+    document.getElementById("clearCart").addEventListener("click", () => {
+      cart.clear();
+      renderCart();
+      renderProducts();
+    });
+
+    document.getElementById("checkoutButton").addEventListener("click", () => {
+      bootstrap.Modal
+        .getOrCreateInstance(document.getElementById("checkoutModal"))
+        .show();
+    });
+
+    // Delivery is available only when the cart total is greater than 5,000 RSD.
+    function updateFulfillmentAvailability(total) {
+      const deliveryRadio = document.getElementById("fulfillmentDelivery");
+      const deliveryOption = document.getElementById("deliveryOption");
+      const pickupRadio = document.getElementById("fulfillmentPickup");
+      const deliveryAvailable = total > 5000;
+
+      deliveryRadio.disabled = !deliveryAvailable;
+      deliveryOption.classList.toggle("disabled", !deliveryAvailable);
+
+      // If the cart total falls to 5,000 RSD or less, switch back to pickup.
+      if (!deliveryAvailable && deliveryRadio.checked) {
+        pickupRadio.checked = true;
+      }
+
+      updateFulfillmentFields();
+    }
+
+    function updateFulfillmentFields() {
+      const delivery = document.getElementById("fulfillmentDelivery").checked;
+
+      document.getElementById("addressGroup").classList.toggle("d-none", !delivery);
+      document.getElementById("customerAddress").required = delivery;
+    }
+
+    document.querySelectorAll('input[name="fulfillment"]').forEach(radio => {
+      radio.addEventListener("change", updateFulfillmentFields);
+    });
+
+    // Submit order
+    document.getElementById("checkoutForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!cart.size) return;
+
+      const orderTotal = [...cart.values()].reduce(
+        (sum, item) => sum + item.quantity * item.product.Cena_po_Meri_Din,
+        0
+      );
+      const deliverySelected = document.getElementById("fulfillmentDelivery").checked;
+
+      if (deliverySelected && orderTotal <= 5000) {
+        document.getElementById("orderFeedback").innerHTML = `
+          <div class="alert alert-warning">
+            Dostava je dostupna samo za porudžbine veće od 5.000 din.
+          </div>`;
+        return;
+      }
+
+      const button = document.getElementById("submitOrder");
+      button.disabled = true;
+      button.textContent = "Slanje...";
+
+      const payload = {
+        customer_name: document.getElementById("customerName").value.trim(),
+        phone: document.getElementById("customerPhone").value.trim(),
+        email: document.getElementById("customerEmail").value.trim() || null,
+        fulfillment: document.querySelector('input[name="fulfillment"]:checked').value,
+        address: document.getElementById("customerAddress").value.trim() || null,
+        notes: document.getElementById("orderNotes").value.trim() || null,
+        items: [...cart.values()].map(item => ({
+          product_id: item.product.id,
+          quantity: item.quantity
+        }))
+      };
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/store/orders`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.detail || "Porudžbina nije poslata.");
+        }
+
+        // Snapshot the cart for the emails BEFORE it is cleared.
+        const emailItems = [...cart.values()].map(item => ({
+          name: item.product.Ime_Proizvoda,
+          unit: item.product.Mera,
+          quantity: item.quantity,
+          unitPrice: item.product.Cena_po_Meri_Din
+        }));
+
+        // Fire and forget: the success message is shown immediately.
+        sendOrderEmails(result.order_id, payload, emailItems, result.total_din);
+
+        cart.clear();
+        renderCart();
+        renderProducts();
+
+        bootstrap.Modal
+          .getOrCreateInstance(document.getElementById("checkoutModal"))
+          .hide();
+
+        document.getElementById("checkoutForm").reset();
+        document.getElementById("addressGroup").classList.add("d-none");
+        document.getElementById("customerAddress").required = false;
+        updateFulfillmentAvailability(0);
+
+        document.getElementById("orderFeedback").innerHTML = `
+          <div class="alert alert-success">
+            <h3 class="h5">Hvala na porudžbini!</h3>
+            <p class="mb-0">
+              Broj porudžbine: <strong>#${result.order_id}</strong>.
+              Ukupno: <strong>${money(result.total_din)}</strong>.
+              Kontaktiraćemo vas radi potvrde.
+            </p>
+          </div>`;
+
+        window.scrollTo({
+          top: document.getElementById("orderFeedback").offsetTop - 100,
+          behavior: "smooth"
+        });
+
+      } catch (err) {
+        document.getElementById("orderFeedback").innerHTML = `
+          <div class="alert alert-danger">
+            ${escapeHtml(err.message)}
+          </div>`;
+      } finally {
+        button.disabled = false;
+        button.textContent = "Pošalji porudžbinu";
+      }
+    });
+
+    // Initial setup
+    renderCart();
+    loadProducts();
+  </script>
+
+</body>
+</html>

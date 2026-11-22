@@ -13,7 +13,7 @@ The template is **SCSS-based**, well-documented, and developer-friendly, making 
 - <a href="https://techmahr.github.io/DinePro/index.html" target="_blank" rel="noopener">Home Carousel Page</a>
 - <a href="https://techmahr.github.io/DinePro/home-image.html" target="_blank" rel="noopener">Home Image Page</a>
 - <a href="https://techmahr.github.io/DinePro/home-video.html" target="_blank" rel="noopener">Home Video Page</a>
-- <a href="https://techmahr.github.io/DinePro/cenovnik.html" target="_blank" rel="noopener">About Page</a>
+- <a href="https://techmahr.github.io/DinePro/dostava.html" target="_blank" rel="noopener">About Page</a>
 - <a href="https://techmahr.github.io/DinePro/menu-classic.html" target="_blank" rel="noopener">Menu Classic</a>
 - <a href="https://techmahr.github.io/DinePro/menu-showcase.html" target="_blank" rel="noopener">Menu Showcase</a>
 - <a href="https://techmahr.github.io/DinePro/reservation.html" target="_blank" rel="noopener">Reservation</a>
